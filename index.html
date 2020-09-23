@@ -53,10 +53,10 @@
       }
 
       function onKeydown({ key, keyCode }) {
-        console.log('onKeydown');
-        console.log({ key, keyCode });
+        console.log('onKeydown', { key, keyCode });
         if (key === value.split('')[index]) {
           console.log('OK');
+          document.querySelectorAll('.char')[index].style.color = 'red';
           index++;
           if (value.length === index) {
             console.log('Clear');
