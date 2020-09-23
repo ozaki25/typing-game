@@ -4,5 +4,91 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // variables
+      let value = '';
+      let index = 0;
+
+      // Listeners
+      function addStartListener() {
+        console.log('addStartListener');
+        document.addEventListener('keydown', onStart);
+      }
+
+      function removeStartListener() {
+        console.log('removeStartListener');
+        document.removeEventListener('keydown', onStart);
+      }
+
+      function addKeydownListener() {
+        console.log('addKeydownListener');
+        document.addEventListener('keydown', onKeydown);
+      }
+
+      function removeKeydownListener() {
+        console.log('removeKeydownListener');
+        document.removeEventListener('keydown', onKeydown);
+      }
+
+      // renders
+      function renderInit() {
+        console.log('renderInit');
+        document.body.innerHTML = `<p>何か押してください</p>`;
+      }
+
+      function renderKeyword(text) {
+        console.log('renderKeyword');
+        document.body.innerHTML = `<p>${text
+          .split('')
+          .map(c => `<span class="char">${c}</span>`)
+          .join('')}</p>`;
+      }
+
+      // handlers
+      function onStart() {
+        console.log('onStart');
+        removeStartListener();
+        addKeydownListener();
+        showKeyword();
+      }
+
+      function onKeydown({ key, keyCode }) {
+        console.log('onKeydown');
+        console.log({ key, keyCode });
+        if (key === value.split('')[index]) {
+          console.log('OK');
+          index++;
+          if (value.length === index) {
+            console.log('Clear');
+            showKeyword();
+          }
+        } else {
+          console.log('NG');
+        }
+      }
+
+      // functions
+      function init() {
+        console.log('onInit');
+        addStartListener();
+        renderInit();
+      }
+
+      function random() {
+        return ('0000000000' + Math.floor(Math.random() * 10000000000)).slice(
+          -10,
+        );
+      }
+
+      function showKeyword() {
+        const val = random();
+        value = val;
+        index = 0;
+        renderKeyword(val);
+      }
+
+      // executes
+      init();
+    </script>
   </body>
 </html>
