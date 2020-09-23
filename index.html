@@ -71,15 +71,15 @@
 
       function onCountDown() {
         console.log('onCountDown', { count });
-        renderCountDown(count);
         if (count === 0) {
           addKeydownListener();
           showKeyword();
           removeCountDownListener();
         } else {
+          renderCountDown(count);
+          count--;
           setTimeout(() => document.dispatchEvent(countDownEvent), 1000);
         }
-        count--;
       }
 
       function onKeydown({ key, keyCode }) {
